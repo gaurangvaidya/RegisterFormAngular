@@ -1,0 +1,265 @@
+<form #f="ngForm" (ngSubmit) = onSubmit(f,firstname,lastname,password,emailid,countrySelected,countryCode,phoneNo)>
+   <div  class="container">
+        <div class="row">
+
+            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            
+                <label for="firstname" class="form-label">FirstName</label>
+                    <input 
+                    name="firstname"
+                    id="firstname"
+                    matInput 
+                    type="text" 
+                    appAutoCapitalisation 
+                    pattern="[a-zA-Z]+" 
+                    required
+                    #firstname="ngModel"
+                    ngModel 
+                    [appShowErrors]="firstname"
+                    class="form-control">
+                
+
+            </div>
+            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                
+                    <label for="lastname" class="form-label">LastName</label>
+                    <input 
+                    name="lastname"
+                    id="lastname"
+                    matInput 
+                    type="text"
+                    appAutoCapitalisation 
+                    pattern="[a-zA-Z]+"
+                    required 
+                    #lastname="ngModel"
+                    ngModel
+                    [appShowErrors]="lastname" 
+                    class="form-control">
+                    
+            
+
+            </div>
+        </div>
+         <div class="row">
+
+                <div *ngIf="(firstname.invalid && (firstname.dirty||firstname.touched))"
+                class="alert alert-danger">
+        
+                    <div *ngIf="firstname.errors.required">
+                        Please Enter First Name
+                    </div>
+                    <div *ngIf="firstname.errors.pattern">
+                        Please Enter Only Alphabets In First Name
+                    </div>
+        
+        
+        
+                </div>
+        
+                <div *ngIf="lastname.invalid && (lastname.dirty||lastname.touched)" class="alert alert-danger">
+                    <div *ngIf="lastname.errors.required">
+                        Please Enter Last Name
+                    </div>
+                    <div *ngIf="lastname.errors.pattern">
+                        Please Enter Only Alphabets In Last Name
+                    </div>
+        
+                </div>
+        
+         </div>
+        
+            <div class="row">
+                <div class="col-sm-12 col-md-3 col-lg-3 col-xl-2">
+        
+                    <label for="password" class="form-label">Password</label>
+                    <input 
+                    type="password" 
+                    name="password"
+                    id="password" 
+                    #password="ngModel"
+                    ngModel
+                    class="form-control" 
+                    [appShowErrors]="password"
+                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" 
+                    required>
+        
+        
+                </div>
+        
+                <div class="col-sm-12 col-md-3 col-lg-3 col-xl-2">
+                    <label for="confirmpassword" class="form-label">Confirm Password</label>
+                    <input 
+                    type="password" 
+                    name="confirmpassword"
+                    id="confirmpassword" 
+                    #confirmpassword="ngModel"
+                    ngModel
+                    class="form-control" 
+                    [appShowErrors]="confirmpassword"
+                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" 
+                    
+                    required>
+        
+                    
+                </div>
+        
+            </div>
+            <div class="row">
+                <div *ngIf="password.invalid && (password.dirty||password.touched)"
+                class="alert alert-danger">
+        
+                    <div *ngIf="password.errors.required">
+                        Please Enter Password
+        
+                    </div>
+        
+                    <div *ngIf="password.errors.pattern">
+                        <p>Password Pattern Should Be</p>
+                        <p>One Upper Case</p>
+                        <p>One Lower Case</p>
+                        <p>One Number</p>
+                        <p>One Special Character</p>
+                        <p>Password Length Should be 8 or more</p>
+                    </div>
+                    
+        
+                
+        
+                </div>
+
+                <div *ngIf="password.value !== confirmpassword.value" class="alert alert-danger">
+                    Password And Confirm Password Should be Same
+                </div>
+        
+             
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                    <label for="emailid" class="form-label">Email</label>
+                    <input 
+                    type="text"
+                    name="emailid" 
+                    id="emailid"
+                    ngModel
+                    #emailid="ngModel"
+                    class="form-control"
+                    pattern='(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))'
+                    required
+                    [appShowErrors]="emailid">
+                            
+        
+                    
+        
+                </div>
+            </div>
+
+            <div class="row">
+                <div *ngIf="emailid.invalid && (emailid.dirty||emailid.touched)" class="alert alert-danger">
+                            <div *ngIf="emailid.errors.pattern">Please Enter Valid Email ID</div>
+                            <div *ngIf="emailid.errors.required">Email Is Empty</div>
+                                    
+                    </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                    <label for="country" class="form-label">Country</label>
+                    <select 
+                    name="country" 
+                    id="country" 
+                    #countrySelected="ngModel"
+                    ngModel
+                    class="form-select"
+                    required
+                    [appShowErrors]="countrySelected">
+
+                    <option value="None" selected></option>
+                    <option *ngFor="let country of countryArray" [value]="country">{{country}}</option>
+
+                    </select>
+
+                </div>
+            </div>
+            <div class="row">
+                <div *ngIf="countrySelected.value==='None' && (countrySelected.dirty||countrySelected.touched)" class="alert alert-danger">
+
+                    Please Select Atleast One Country
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1">
+                    <label for="countryCode">Country Code</label>
+                    <input type="text" 
+                    name="countryCode"
+                    id="countryCode"
+                    #countryCode="ngModel"
+                    ngModel
+                    [value]="countryCodeObj[countrySelected.value]===undefined?'':countryCodeObj[countrySelected.value]" 
+                    disabled 
+                    class="form-control"
+                    >
+                   
+                    
+               
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                    <label for="phoneNo">Phone No</label>
+                    <input 
+                    type="text" 
+                    name="phoneNo"
+                    id="phoneNo"
+                    #phoneNo="ngModel" 
+                    ngModel
+                    required 
+                    pattern="^[0-9]{10,10}$" 
+                    class="form-control" 
+                    required
+                    [appShowErrors]="phoneNo">
+
+                    
+                </div>
+
+            </div>
+            <div class="row">
+
+                <div *ngIf="phoneNo.invalid && (phoneNo.dirty||phoneNo.touched)" class="alert alert-danger">
+                    <div *ngIf="phoneNo.errors.pattern">
+                        Phone Number Should Be 10 Digit Long And Should Not Contain Characters
+                    </div>
+                    <div *ngIf="phoneNo.errors.required">
+                        Please Enter Phone Number
+                    </div>
+
+                </div>
+
+
+            </div>
+            <br>
+
+            <div class="row">
+                <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                    <button 
+                    [class]="(f.invalid)||(password.value!==confirmpassword.value)||
+                    (countrySelected.value==='')?'btn btn-danger':'btn btn-primary'"
+                    type="submit"
+                    [disabled]="(f.invalid)||(password.value!==confirmpassword.value)||
+                    (countrySelected.value==='')">
+                    Submit</button>
+                </div>
+            </div>
+
+    </div>
+
+
+</form>
+
+<div *ngIf="valueData">
+
+    <app-child [data]="data"></app-child>
+
+</div>
+
+   
+   
