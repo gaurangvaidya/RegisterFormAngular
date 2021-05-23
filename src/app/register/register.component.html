@@ -236,6 +236,68 @@
 
 
             </div>
+            <div class="row">
+                <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
+
+                    <label for="dateofbirth" class="form-label">DOB</label>
+                    <input 
+                    type="date" 
+                    class="form-control" 
+                    name="dateofbirth" 
+                    id="dateofbirth"
+                    #dateofbirth="ngModel"
+                    ngModel
+                    required
+                    [appShowErrors]="dateofbirth">
+
+
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
+
+                    <label for="dateformat" class="form-label">Select Format</label>
+                    <select 
+                    id="dateformat"
+                    name="dateformat"
+                    #dateformat="ngModel"
+                    ngModel
+                    class="form-select">
+    
+                    <option value="short" selected>Short</option>
+                    <option value="medium">Medium</option>
+                    <option value="long">Long</option>
+                    <option value="full">Full</option>
+                    <option value="shortDate">Short Date</option>
+                    <option value="mediumDate">Medium Date</option>
+                    <option value="longDate">Long Date</option>
+                    <option value="fullDate">Full Date</option>
+                    <option value="shortTime">Short Time</option>
+                    <option value="mediumTime">Medium Time</option>
+                    <option value="longTime">Long Time</option>
+                    <option value="fullTime">Full Time</option>
+    
+                    </select>
+
+
+                </div>
+              
+            </div>
+            <div class="row">
+                <div *ngIf="dateofbirth.invalid && (dateofbirth.dirty||dateofbirth.touched)" 
+                class="alert alert-danger">
+
+                Please Select Date Of Birth
+                    
+
+                </div>
+            </div>
+            <div class="row" *ngIf="dateofbirth.valid"> 
+                <span>{{dateofbirth.value|date:'dd/MM/yyyy'}}</span>
+                <br>
+                <span>{{dateofbirth.value|date:'MM/dd/yyyy'}}</span>
+                <br>
+                <span>{{dateofbirth.value|customDatePipe:dateformat.value}}</span>
+                
+            </div>
             <br>
 
             <div class="row">
@@ -250,13 +312,16 @@
                 </div>
             </div>
 
+            
+
     </div>
 
 
 </form>
 
-<div *ngIf="valueData">
+<div *ngIf="validData">
 
+    <div class="alert alert-success">Registered Successfully</div>
     <app-child [data]="data"></app-child>
 
 </div>

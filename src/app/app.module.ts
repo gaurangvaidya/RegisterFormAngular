@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { AutoCapitalisationDirective } from './auto-capitalisation.directive';
 import { ShowErrorsDirective } from './show-errors.directive';
 import { ChildComponent } from './child/child.component';
+import { CustomDatePipePipe } from './custom-date-pipe.pipe';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { ChildComponent } from './child/child.component';
     RegisterComponent,
     AutoCapitalisationDirective,
     ShowErrorsDirective,
-    ChildComponent
+    ChildComponent,
+    CustomDatePipePipe
   ],
   imports: [
     BrowserModule,

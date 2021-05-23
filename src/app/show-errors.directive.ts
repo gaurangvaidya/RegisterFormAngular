@@ -159,6 +159,27 @@ export class ShowErrorsDirective {
         }
 
      }
+     else if(this.data.name==='dateofbirth')
+     {
+      if(this.data.invalid && (this.data.dirty||this.data.touched))
+      {
+          if(this.data.errors.required)
+          {
+            
+            this.el.nativeElement.style.border="thick solid red";
+    
+          }
+
+      }
+      else
+      {
+        this.el.nativeElement.style.border="thick solid green";
+
+      }
+
+     }
+
+    
      
      
      
